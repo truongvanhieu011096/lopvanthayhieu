@@ -12,5 +12,6 @@ window.LV_ACCOUNTS = {
   ],
   students: [
     { id: 'hocsinh1', name: 'Học sinh mẫu', cls: '8A', hash: 'f7c84cff78909deb32d01cb09e6f15dc802e13548e5d922e86b4fd388ccba856' }
+    { id: 'tchnhien', name: 'Trương Cung Hạo Nhiên', cls: '1/4', hash: 'bd056460c1ca7c782a9dd8c43719c1b44d8cc0a8d17cdf39fa59ae59d6d8e045' },
   ]
 };
