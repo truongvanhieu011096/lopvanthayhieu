@@ -14,6 +14,17 @@ const nd = u => ({ sach: [], blog: [], quiz: [], hoidap: [], ...(window.LV_NOIDU
 const tai = (ten, nd2, kieu) => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([nd2], { type: kieu })); a.download = ten; a.click(); };
 const mau = t => 'hsl(' + ([...String(t)].reduce((a, c) => a + c.charCodeAt(0), 0) * 37 % 360) + ',60%,50%)';
 const hnay = () => new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+const ic = d => '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block">' + d + '</svg>';
+const IC = {
+  home: ic('<path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/>'),
+  lop: ic('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.7a3.5 3.5 0 010 6.6"/><path d="M18 14.5c2.2.7 3.5 2.6 3.5 5.5"/>'),
+  nhac: ic('<rect x="4.5" y="3.5" width="15" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/>'),
+  goiten: ic('<rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="15" r="1" fill="currentColor"/>'),
+  sach: ic('<path d="M12 6.5C10 5 7 4.5 4 4.5v14c3 0 6 .5 8 2 2-1.5 5-2 8-2v-14c-3 0-6 .5-8 2z"/><path d="M12 6.5v14"/>'),
+  blog: ic('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/>'),
+  quiz: ic('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.6a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.1"/><circle cx="12" cy="17" r=".7" fill="currentColor"/>'),
+  hoidap: ic('<path d="M21 12a8 8 0 01-11.6 7.1L4 20.5l1.4-4.8A8 8 0 1121 12z"/>')
+};
 const line = 'padding:7px 0;border-top:1px solid var(--line)';
 const trong = t => `<div class="card empty">${t}</div>`;
 
@@ -49,7 +60,7 @@ const SACH = {
   show: i => `<h3>${$e(i.ten)}</h3><div class="sub">${$e(i.tg)} · Giá: ${$e(i.ke || 'Khác')}</div>`,
   view(el, ds) {
     const ke = [...new Set(ds.map(i => i.ke || 'Khác'))];
-    el.innerHTML = ds.length ? ke.map(k => `<div class="card"><h3>📚 ${$e(k)}</h3><div class="row" style="margin-top:10px;align-items:stretch">` + ds.filter(i => (i.ke || 'Khác') === k).map(i =>
+    el.innerHTML = ds.length ? ke.map(k => `<div class="card"><h3>${$e(k)}</h3><div class="row" style="margin-top:10px;align-items:stretch">` + ds.filter(i => (i.ke || 'Khác') === k).map(i =>
       `<button class="b s" data-b="${i.id}" style="width:150px;min-height:110px;white-space:normal;border-left:6px solid ${mau(i.ten)}"><b>${$e(i.ten)}</b><br><span class="sub">${$e(i.tg)}</span></button>`).join('') + '</div></div>').join('') : trong('Thầy chưa đăng sách nào');
     el.querySelectorAll('[data-b]').forEach(b => b.onclick = () => {
       const i = ds.find(x => x.id === b.dataset.b);
@@ -68,7 +79,7 @@ const BLOG = { key: 'blog', add: 'Viết bài mới', ngay: 1, hint: 'Cách đo�
 /* Giải đáp */
 const HOIDAP = { key: 'hoidap', add: 'Thêm câu hỏi và giải đáp',
   f: [{ n: 'q', p: 'Câu hỏi' }, { n: 'a', p: 'Giải đáp của thầy', t: 1, h: 120 }],
-  show: i => `<h3>❓ ${$e(i.q)}</h3>${van(i.a)}`,
+  show: i => `<h3>${$e(i.q)}</h3>${van(i.a)}`,
   top: LIEN_HE ? `<div class="card row"><span class="g">Em có thắc mắc mới?</span><a class="b" target="_blank" rel="noopener" href="${$e(LIEN_HE)}">Gửi câu hỏi cho thầy</a></div>` : '' };
 
 /* Quizz: mỗi dòng "Câu hỏi | A | B | C | D | số thứ tự đáp án đúng" */
@@ -137,7 +148,7 @@ function goiten(el) {
   const ve = () => {
     if (!hs.length) { el.innerHTML = trong('Hãy thêm học sinh ở mục Quản lý lớp học trước'); return; }
     const cl = [...new Set(hs.map(s => s.cls).filter(Boolean))].sort(), L = hs.filter(s => !loc || s.cls === loc);
-    el.innerHTML = `<div class="card"><div class="row"><select id="lc"><option value="">Tất cả lớp</option>${cl.map(c => `<option ${c === loc ? 'selected' : ''}>${$e(c)}</option>`).join('')}</select><button class="b" id="go">🎲 Gọi tên</button><button class="b d" id="rs">Đặt lại số liệu</button></div>`
+    el.innerHTML = `<div class="card"><div class="row"><select id="lc"><option value="">Tất cả lớp</option>${cl.map(c => `<option ${c === loc ? 'selected' : ''}>${$e(c)}</option>`).join('')}</select><button class="b" id="go">Gọi tên</button><button class="b d" id="rs">Đặt lại số liệu</button></div>`
       + (cur ? `<div style="text-align:center;padding:22px 0"><div style="font-size:34px;font-weight:700">${$e(cur.ten)}</div><div class="sub">${$e(cur.cls)}</div><div class="row" style="justify-content:center;margin-top:12px"><button class="b" data-r="1">Trả lời tốt</button><button class="b s" data-r="0">Chưa tốt</button></div></div>` : '')
       + '</div><div class="card"><h3>Thống kê</h3>' + L.map(s => `<div class="row" style="${line}"><b class="g">${$e(s.ten)}</b><span class="sub">${$e(s.cls)}</span><span>Gọi ${n(s).n} · Tốt ${n(s).d}</span></div>`).join('') + '</div>';
     const q = s => el.querySelector(s);
@@ -151,17 +162,17 @@ function goiten(el) {
 
 const CHUNG = ['gv', 'hs'], vao = c => (el, u) => crud(el, u, c);
 window.TRANG = [
-  { id: 'home', icon: '🏠', title: 'Tổng quan', roles: CHUNG,
+  { id: 'home', icon: IC.home, title: 'Tổng quan', roles: CHUNG,
     render(el, user) {
       el.innerHTML = `<section class="hero"><div><p>${new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
         <h2>Xin chào, ${$e(user.name)}</h2><p>${user.role === 'gv' ? 'Bạn đang đăng nhập với tư cách giáo viên' : 'Bạn đang đăng nhập với tư cách học sinh lớp ' + $e(user.cls)}</p></div></section>`;
     } },
-  { id: 'lop', icon: '🏫', title: 'Quản lý lớp học', roles: ['gv'], render: lop },
-  { id: 'nhac', icon: '🗒️', title: 'Sổ nhắc việc', roles: ['gv'], render: nhac },
-  { id: 'goiten', icon: '🎲', title: 'Sổ gọi tên', roles: ['gv'], render: goiten },
-  { id: 'sach', icon: '📚', title: 'Đọc sách cùng thầy Hiếu', roles: CHUNG, render: vao(SACH) },
-  { id: 'blog', icon: '✍️', title: 'Blog văn chương', roles: CHUNG, render: vao(BLOG) },
-  { id: 'quiz', icon: '🧩', title: 'Quizz', roles: CHUNG, render: vao(QUIZ) },
-  { id: 'hoidap', icon: '💬', title: 'Giải đáp thắc mắc cùng thầy Hiếu', roles: CHUNG, render: vao(HOIDAP) }
+  { id: 'lop', icon: IC.lop, title: 'Quản lý lớp học', roles: ['gv'], render: lop },
+  { id: 'nhac', icon: IC.nhac, title: 'Sổ nhắc việc', roles: ['gv'], render: nhac },
+  { id: 'goiten', icon: IC.goiten, title: 'Sổ gọi tên', roles: ['gv'], render: goiten },
+  { id: 'sach', icon: IC.sach, title: 'Đọc sách cùng thầy Hiếu', roles: CHUNG, render: vao(SACH) },
+  { id: 'blog', icon: IC.blog, title: 'Blog văn chương', roles: CHUNG, render: vao(BLOG) },
+  { id: 'quiz', icon: IC.quiz, title: 'Quizz', roles: CHUNG, render: vao(QUIZ) },
+  { id: 'hoidap', icon: IC.hoidap, title: 'Giải đáp thắc mắc cùng thầy Hiếu', roles: CHUNG, render: vao(HOIDAP) }
 ];
 })();
