@@ -8,7 +8,7 @@ window.LV_ACCOUNTS = {
   salt: 'lvth-7f3a91c2',
   users: [
     { id: 'thayhieu', name: 'Thầy Hiếu', admin: true, hash: 'b95b687f518384f070ab7489ea66d013605a0e97c84e996b5a1391889d73705e' },
-    { id: 'thayhieu1', name: 'Tiểu Thái Dương | Trợ lý thầy Hiếu', hash: 'f7b45d8f1fa9a650bc25996758fccf2330a844f53834f4c3e68f5cf986a03ef1' }
+    { id: 'thayhieu1', name: 'Tiểu Thái Dương | Trợ lý thầy Hiếu', hash: '6c8b41612fe2b4b1a6ea329dc1ea424387bc59d7d60c9cfcb19028d1b65baf32' }
   ],
   students: [
     { id: 'hocsinh1', name: 'Học sinh mẫu', cls: '8A', hash: 'f7c84cff78909deb32d01cb09e6f15dc802e13548e5d922e86b4fd388ccba856' }
