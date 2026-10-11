@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lớp văn thầy Hiếu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lora:wght@600;700&family=Playfair+Display:wght@800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#10304d;--mut:#58738a;--blue:#2563eb;--sky:#38bdf8;--acc:#f5b942;--red:#d6455b;--line:rgba(16,48,77,.14);--inp:rgba(255,255,255,.85);--glass:rgba(255,255,255,.66);--sh:0 8px 30px rgba(16,48,77,.13)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:15px/1.55 'Be Vietnam Pro',system-ui,sans-serif;background:#e8f2fd;min-height:100vh}
+h1,h2,h3{font-weight:700;margin:0;letter-spacing:-.01em}h1{font-size:22px}h2{font-size:24px;margin-bottom:12px}h3{font-size:16px}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#e8f2fd}
+.bg::before,.bg::after{content:'';position:absolute;width:62vmax;height:62vmax;border-radius:50%;filter:blur(80px);opacity:.5}
+.bg::before{background:#60a5fa;left:-18vmax;top:-24vmax;animation:fl 20s ease-in-out infinite alternate}
+.bg::after{background:#fcd34d;right:-22vmax;bottom:-28vmax;animation:fl 26s ease-in-out infinite alternate-reverse}
+@keyframes fl{to{transform:translate(9vmax,7vmax) scale(1.18)}}
+.bg.img{background-size:cover;background-position:center;background-repeat:no-repeat}
+.bg.img::before{display:none}
+.bg.img::after{inset:0;width:auto;height:auto;border-radius:0;filter:none;opacity:1;animation:none;background:rgba(255,255,255,.14)}
+@media (prefers-reduced-motion:reduce){.bg::before,.bg::after{animation:none}}
+#app{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;max-width:1100px;margin:0 auto;padding:18px}
+.glass,.card{background:var(--glass);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.8);border-radius:18px;box-shadow:var(--sh)}
+.card{padding:14px 16px;margin-bottom:12px}
+.side{position:sticky;top:18px;align-self:start;display:flex;flex-direction:column;gap:4px;padding:10px}
+.side button{display:flex;align-items:center;gap:10px;border:0;background:none;color:var(--mut);font:inherit;font-weight:500;padding:10px 12px;border-radius:12px;cursor:pointer;text-align:left}
+.side button:hover{background:rgba(37,99,235,.08);color:var(--ink)}
+.side button.on{background:linear-gradient(135deg,var(--blue),var(--sky));color:#fff;box-shadow:0 6px 16px rgba(37,99,235,.35)}
+.top{display:flex;align-items:center;gap:12px;padding:12px 16px;margin-bottom:14px}.top>div{flex:1}
+.sub{color:var(--mut);font-size:13px}
+.hero{border-radius:22px;padding:34px 26px 26px;margin-bottom:14px;color:#fff;background:linear-gradient(135deg,#1d4ed8,#38bdf8);box-shadow:var(--sh);min-height:170px;display:flex;align-items:flex-end}
+.hero h2{font-size:30px;margin:2px 0}.hero p{margin:0;opacity:.9}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>.g{flex:1;min-width:120px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--inp);border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;max-width:100%;transition:border-color .2s,box-shadow .2s}
+textarea{width:100%;min-height:90px}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.18)}
+.b{display:inline-block;font:inherit;font-weight:600;border:0;color:#fff;background:linear-gradient(135deg,var(--blue),var(--sky));border-radius:12px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.b.s{background:rgba(255,255,255,.8);color:var(--ink);box-shadow:none;border:1.5px solid var(--line)}
+.b.d{background:none;color:var(--red);box-shadow:none;border:1.5px solid rgba(214,69,91,.5)}
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.x{color:var(--red)}.empty{color:var(--mut);text-align:center;padding:22px}
+.login{grid-column:1/-1;max-width:460px;width:100%;margin:8vh auto 0;padding:34px 34px 30px}
+.lgw{text-align:center;margin-bottom:6px}
+.lgo{display:block;margin:0 auto 12px;width:112px;height:112px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(16,48,77,.22))}
+.brand{font-family:'Playfair Display','Lora',Georgia,serif;font-weight:900;letter-spacing:.01em;line-height:1.2;text-wrap:balance;
+background:linear-gradient(100deg,#1d4ed8 0%,#38bdf8 28%,#f5b942 52%,#38bdf8 76%,#1d4ed8 100%);background-size:200% auto;
+-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 10px rgba(37,99,235,.25))}
+@keyframes shine{to{background-position:200% center}}
+@media (prefers-reduced-motion:no-preference){.brand{animation:shine 7s linear infinite}}
+.login .brand{font-size:clamp(28px,7.5vw,38px);text-align:center;margin:0}
+.top .brand{font-size:clamp(20px,4.6vw,27px)}
+body{padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+#cp{position:fixed;left:0;right:0;bottom:0;z-index:15;pointer-events:none;display:flex;justify-content:center;padding:0 12px calc(10px + env(safe-area-inset-bottom,0px))}
+#cp span{max-width:100%;text-align:center;padding:7px 18px;border-radius:14px;background:rgba(255,255,255,.78);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.85);box-shadow:var(--sh);color:#4a3320;font:600 12px/1.5 Lora,Georgia,serif;letter-spacing:.04em}
+#cp span::before,#cp span::after{content:'\2766';margin:0 8px;color:#a77c4d;opacity:.75}
+@media (prefers-reduced-motion:no-preference){.card,.b{transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-2px)}#view>*{animation:rise .45s cubic-bezier(.2,.8,.2,1) both}@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}}
+@media (max-width:760px){#app{grid-template-columns:1fr}.side{position:static;flex-direction:row;overflow-x:auto}.side button{white-space:nowrap}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div id="app"></div>
+<div id="cp"><span>© Copyright 2025 - Ứng dụng dạy học số Thầy Hiếu gen Z</span></div>
+<script src="accounts.js"></script>
+<script src="custom.js"></script>
+<script>
+const $ = s => document.querySelector(s), app = $('#app');
+(() => { const i = new Image(); i.onload = () => { const b = $('.bg'); b.style.backgroundImage = 'url(bg.jpg)'; b.classList.add('img'); }; i.src = 'bg.jpg'; })();
+const ACC = window.LV_ACCOUNTS || { salt: '', users: [] }, PAGES = window.TRANG || [];
+const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sha = async t => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)))].map(x => x.toString(16).padStart(2, '0')).join('');
+let me = null, tab = null, role = 'gv';
+try { me = JSON.parse(sessionStorage.getItem('lvu')); } catch (e) {}
+
+function loginView() {
+  app.innerHTML = `<div class="card login"><div class="lgw"><img class="lgo" src="lvth.png" alt="Logo lớp học" onerror="this.style.display='none'"><h1 class="brand">Lớp văn thầy Hiếu</h1></div><div class="row" style="justify-content:center;margin-top:14px"><button class="b ${role==='gv'?'':'s'}" data-r="gv">Giáo viên</button><button class="b ${role==='hs'?'':'s'}" data-r="hs">Học sinh</button></div>
+    <div class="row"><input class="g" id="lu" placeholder="ID" autocomplete="username"><input class="g" id="lp" type="password" placeholder="Mật khẩu" autocomplete="current-password"></div>
+    <div class="row" style="justify-content:center"><button class="b" id="lg">Đăng nhập</button></div><div class="x" id="lm" style="text-align:center;margin-top:8px"></div></div>`;
+  app.querySelectorAll('[data-r]').forEach(b => b.onclick = () => { role = b.dataset.r; loginView(); });
+  $('#lg').onclick = login;
+  $('#lp').onkeydown = e => { if (e.key === 'Enter') login(); };
+}
+async function login() {
+  const u = $('#lu').value.trim().toLowerCase(), p = $('#lp').value, m = $('#lm');
+  try {
+    const h = await sha(u + '|' + p + '|' + ACC.salt);
+    const f = (role === 'gv' ? ACC.users : (ACC.students || [])).find(x => x.id.toLowerCase() === u && x.hash === h);
+    if (!f) { m.textContent = 'ID hoặc mật khẩu chưa đúng'; return; }
+    me = { id: f.id, name: f.name || f.id, role: role, cls: f.cls || '', admin: !!f.admin }; tab = null;
+    sessionStorage.setItem('lvu', JSON.stringify(me));
+    show();
+  } catch (e) { m.textContent = 'Trình duyệt chưa kiểm tra được, hãy mở trang bằng https hoặc localhost'; }
+}
+function show() {
+  if (!me) return loginView();
+  const pages = PAGES.filter(p => (p.roles || ['gv']).includes(me.role));
+  const cur = pages.find(p => p.id === tab) || pages[0];
+  app.innerHTML = `<nav class="glass side">${pages.map(p => `<button data-t="${esc(p.id)}" class="${cur && cur.id === p.id ? 'on' : ''}"><span>${p.icon || '•'}</span>${esc(p.title)}</button>`).join('')}</nav>
+    <main><header class="glass top"><div><h1 class="brand">Lớp văn thầy Hiếu</h1><span class="sub">${me.role === 'gv' ? (me.admin ? 'Quản trị viên' : 'Giáo viên') : 'Học sinh' + (me.cls ? ' lớp ' + esc(me.cls) : '')}: ${esc(me.name)}</span></div><button class="b s" id="out">Đăng xuất</button></header><div id="view"></div></main>`;
+  app.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { tab = b.dataset.t; show(); });
+  $('#out').onclick = () => { sessionStorage.removeItem('lvu'); me = null; show(); };
+  const v = $('#view');
+  if (!cur) v.innerHTML = '<div class="empty">Chưa có mục nào dành cho tài khoản này</div>';
+  else try { cur.render(v, me); } catch (e) { v.innerHTML = '<div class="card x">Lỗi trong custom.js: ' + esc(e.message) + '</div>'; }
+}
+show();
+</script>
+</body>
+</html>

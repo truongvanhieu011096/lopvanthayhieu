@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tạo tài khoản</title>
+<style>body{font:15px/1.6 system-ui,sans-serif;max-width:560px;margin:8vh auto;padding:0 16px;color:#10304d}input,select{font:inherit;padding:8px 10px;margin:4px 0;width:100%;border:1.5px solid #cfd9e3;border-radius:10px}button{font:inherit;font-weight:600;padding:9px 16px;border:0;border-radius:12px;color:#fff;background:#2563eb;cursor:pointer;margin-top:8px}textarea{width:100%;height:100px;font:13px monospace;margin-top:10px}</style></head>
+<body><h2>Tạo dòng tài khoản cho accounts.js</h2>
+<select id="r"><option value="gv">Giáo viên</option><option value="ad">Quản trị viên (admin)</option><option value="hs">Học sinh</option></select>
+<input id="i" placeholder="ID (viết thường, không dấu)"><input id="n" placeholder="Tên hiển thị, ví dụ: Thầy Hiếu">
+<input id="c" placeholder="Lớp (chỉ cho học sinh, ví dụ 8A)"><input id="p" type="password" placeholder="Mật khẩu (nên từ 10 ký tự, có chữ và số)">
+<button id="g">Tạo dòng tài khoản</button><textarea id="o" readonly placeholder="Kết quả hiện ở đây, chép vào accounts.js"></textarea>
+<p style="font-size:13px;color:#58738a">Trang này chạy ngay trên máy thầy, mật khẩu không gửi đi đâu. Không đưa tệp này lên mạng.</p>
+<script src="accounts.js"></script>
+<script>
+document.getElementById('g').onclick=async()=>{const u=i.value.trim().toLowerCase(),p=document.getElementById('p').value,s=(window.LV_ACCOUNTS||{}).salt||'';
+if(!u||!p){o.value='Hãy nhập ID và mật khẩu';return}
+const h=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(u+'|'+p+'|'+s)))].map(x=>x.toString(16).padStart(2,'0')).join('');
+const nm=n.value.replace(/'/g,"\\'"),k=r.value;
+o.value=k==='hs'?"(dán vào mảng students)\n{ id: '"+u+"', name: '"+nm+"', cls: '"+c.value.trim()+"', hash: '"+h+"' },"
+:"(dán vào mảng users)\n{ id: '"+u+"', name: '"+nm+"', "+(k==='ad'?"admin: true, ":"")+"hash: '"+h+"' },"}
+</script></body></html>
