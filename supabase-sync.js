@@ -120,7 +120,7 @@
       if (!user) return status('Hãy kết nối Supabase trước.', true);
       if (!confirm('Dữ liệu trên Supabase sẽ thay thế dữ liệu tương ứng trên trình duyệt này. Thầy đã sao lưu dữ liệu hiện tại chưa?')) return;
       status('Đang tải dữ liệu xuống…');
-      try { await downloadAll(); status('Đã tải dữ liệu xuống. Những thay đổi tiếp theo sẽ tự động đồng bộ.'); location.reload(); }
+      try { await downloadAll(); status('Đã tải dữ liệu xuống thành công. Hãy chọn lại mục cần xem để làm mới dữ liệu hiển thị. Những thay đổi tiếp theo sẽ tự động đồng bộ.'); }
       catch (e) { status('Tải xuống thất bại: ' + (e.message || 'Lỗi'), true); }
     };
     panel.querySelector('#lv-cloud-disconnect').onclick = async () => {
