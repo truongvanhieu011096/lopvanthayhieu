@@ -62,8 +62,10 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
 <div class="bg"></div>
 <div id="app"></div>
 <div id="cp"><span>© Copyright 2025 - Ứng dụng dạy học số Thầy Hiếu gen Z</span></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="accounts.js"></script>
 <script src="custom.js"></script>
+<script src="supabase-sync.js"></script>
 <script>
 const $ = s => document.querySelector(s), app = $('#app');
 (() => { const i = new Image(); i.onload = () => { const b = $('.bg'); b.style.backgroundImage = 'url(bg.jpg)'; b.classList.add('img'); }; i.src = 'bg.jpg'; })();
