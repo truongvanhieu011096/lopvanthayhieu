@@ -11,7 +11,7 @@ window.LV_ACCOUNTS = {
     { id: 'thayhieu1', name: 'Tiểu Thái Dương | Trợ lý thầy Hiếu', hash: '6c8b41612fe2b4b1a6ea329dc1ea424387bc59d7d60c9cfcb19028d1b65baf32' }
   ],
   students: [
-    { id: 'hocsinh1', name: 'Học sinh mẫu', cls: '8A', hash: 'f7c84cff78909deb32d01cb09e6f15dc802e13548e5d922e86b4fd388ccba856' }
+    { id: 'hocsinh1', name: 'Học sinh mẫu', cls: '8A', hash: 'f7c84cff78909deb32d01cb09e6f15dc802e13548e5d922e86b4fd388ccba856' },
     { id: 'tchnhien', name: 'Trương Cung Hạo Nhiên', cls: '1/4', hash: 'bd056460c1ca7c782a9dd8c43719c1b44d8cc0a8d17cdf39fa59ae59d6d8e045' },
   ]
 };
